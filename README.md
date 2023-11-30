@@ -1,3 +1,11 @@
+
+sudo service postgresql start
+
+git add .
+git commit -m ""
+git push -u origin main
+
+
 # Project Template: React/Rails API
 
 ## Description
