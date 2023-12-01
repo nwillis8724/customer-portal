@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_28_225516) do
+ActiveRecord::Schema.define(version: 2023_12_01_010206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admin_jobs", force: :cascade do |t|
+    t.integer "admin_id"
+    t.integer "job_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "admins", force: :cascade do |t|
     t.string "username"
@@ -28,7 +35,7 @@ ActiveRecord::Schema.define(version: 2023_11_28_225516) do
     t.string "size"
     t.string "color"
     t.string "date_of_arrival"
-    t.string "job_id"
+    t.integer "job_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -37,14 +44,14 @@ ActiveRecord::Schema.define(version: 2023_11_28_225516) do
     t.string "address"
     t.string "date_of_install"
     t.string "access_code"
-    t.string "admin_id"
+    t.integer "admin_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "notes", force: :cascade do |t|
     t.string "note"
-    t.string "job_id"
+    t.integer "job_id"
     t.integer "door_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

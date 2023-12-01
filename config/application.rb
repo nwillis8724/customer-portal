@@ -19,7 +19,7 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module ReactRailsApiProjectTemplate
+module DoorClientPortal
   class Application < Rails::Application
     # Adding cookies and session middleware
     config.middleware.use ActionDispatch::Cookies
@@ -31,6 +31,7 @@ module ReactRailsApiProjectTemplate
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    config.application_name = 'DoorClientPortal'
 
     # Configuration for the application, engines, and railties goes here.
     #

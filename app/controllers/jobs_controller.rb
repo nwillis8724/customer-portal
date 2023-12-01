@@ -3,7 +3,7 @@ class JobsController < ApplicationController
 
   # GET /jobs
   def index
-    @jobs = Job.includes(:doors)
+    @jobs = Job.all
     render json: @jobs, include: 'doors'
   end
 
