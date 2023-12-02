@@ -1,10 +1,12 @@
 import React from "react";
+import RaynorLogo from './images/raynorlogo.png'
+
 
 function Home(){
  return (
     <div>
         <div>
-            <h1>Welcome to The Raynor Portal</h1>
+            <  img className="raynor-logo" src={RaynorLogo} alt="Raynor Logo" />
         </div>
 
         <div class="door-finder">
