@@ -1,38 +1,110 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Navbar */
+.navbar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-direction: column; /* Layout as a column */
+  height: 30vh; /* Set the height to 30% of the viewport height */
+  background-color: rgb(4, 22, 82);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-container {
+  display: flex;
+  flex-direction: column; /* Layout as a column */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+}
+
+.nav-item {
+  margin-right: 10px; /* Adjust spacing between items */
+  margin-bottom: 10px; /* Add margin between rows */
+  background-color: #555; /* Background color for the boxes */
+  padding: 8px; /* Padding for the boxes */
+  border-radius: 5px; /* Optional: Add rounded corners to the boxes */
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-family: 'Noto Sans', sans-serif; /* Replace 'Your Nicer Font' with the actual font you want to use */
+}
+
+.nav-link:hover {
+  text-decoration: none; /* Remove underline on hover */
+  font-style: italic; /* Add italic style on hover, adjust as needed */
+}
+
+.active {
+  font-weight: underline; /* Keep underline on active state */
+}
+
+.navbar-image {
+  max-width: 90%; /* Set the maximum width for the image */
+  max-height: 90%; /* Set the maximum width for the image */
+  height: auto; /* Maintain the aspect ratio */
+  object-fit: cover;
+  outline: 2px solid rgb(81, 80, 92); /* Add an outline to the image */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add box shadow to the image */
+}
+
+h1 {
+  padding-top: 5%;
+}
+
+/* Door Finder */
+.door-finder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 200vh;
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Door Finder Form */
+form {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  margin: 0; /* Removed top margin */
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
 }
