@@ -38,11 +38,6 @@
   font-family: 'Noto Sans', sans-serif; /* Replace 'Your Nicer Font' with the actual font you want to use */
 }
 
-
-.active {
-  font-weight: underline; /* Keep underline on active state */
-}
-
 .navbar-image {
   max-width: 90%; /* Set the maximum width for the image */
   max-height: 90%; /* Set the maximum width for the image */
@@ -70,7 +65,7 @@ h1 {
 }
 
 /* Door Finder Form */
-form {
+.door-finder-form{
   text-align: center;
   padding: 20px;
   border: 1px solid #ddd;
@@ -111,4 +106,155 @@ button:hover {
 
 .raynor-logo{
   padding-top: 7%;
+}
+
+.about-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-text {
+  font-family: 'Arial', sans-serif;
+  font-size: 1.5em;
+  color: #333;
+  line-height: 1.5;
+}
+
+.error_code {
+  color: #ff0000; /* Red color for error messages */
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Styles for the grid container */
+.door-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive columns with a minimum width of 300px */
+  gap: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+/* Styles for each door information container */
+.door-info-container {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+/* Styles for the door information */
+.door-info-container p {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Styles for header container */
+.job-selected-container {
+  max-width: 800px;
+  margin: 70px auto 20px; /* Adjust the top margin to move it down */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+/* Styles for the address */
+.job-selected-container h1 {
+  font-size: 24px;
+  color: #333;
+}
+
+/* Styles for the date of install */
+.job-selected-container p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Styles for the notes section */
+.job-selected-container .job-notes {
+  margin-top: 15px;
+}
+
+/* Styles for individual notes */
+.job-selected-container .job-notes div {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.job-selected-container .job-notes p {
+  font-size: 14px;
+  color: #777;
+  margin: 0;
+}
+
+/* Add these styles to your existing CSS */
+
+.login_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login_card {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 20%; /* Adjusted margin bottom */
+  background-color: #fff; /* Set background color */
+}
+
+
+.login_card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333; /* Set text color */
+}
+
+.login_card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none; /* Remove input outline on focus */
+}
+
+.login_card button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login_card button:hover {
+  background-color: #45a049;
+}
+
+.error_code {
+  color: #ff0000; /* Red color for error messages */
+  font-size: 14px;
+  margin-top: 10px; /* Adjust margin top */
+}
+
+/* Optionally, you can add some spacing to the form elements */
+.login_card form {
+  display: flex;
+  flex-direction: column;
 }

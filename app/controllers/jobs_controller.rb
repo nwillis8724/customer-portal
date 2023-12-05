@@ -1,4 +1,5 @@
 class JobsController < ApplicationController
+  include ActionController::Cookies
   before_action :set_job, only: [:show, :update, :destroy]
 
   # GET /jobs
