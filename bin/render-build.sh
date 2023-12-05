@@ -2,6 +2,9 @@
 # exit on error
 set -o errexit
 
+# Activate the Ruby environment
+source /usr/share/rvm/bin/rvm
+rvm use ruby 2.7.4
 # builds the front end code
 rm -rf public
 npm install --prefix client && npm run build --prefix client
