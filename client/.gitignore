@@ -17,8 +17,6 @@
 .env.development.local
 .env.test.local
 .env.production.local
-../config/credentials.yml.enc
-
 
 
 npm-debug.log*
