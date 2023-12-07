@@ -6,6 +6,14 @@ git commit -m ""
 git push -u origin main
 
 
+TODO
+Full crud on notes,
+revisit admin user via serializer for notes
+add/edit/delete on customer search
+Add a MyJobs page for admin
+
+
+
 # Project Template: React/Rails API
 
 ## Description

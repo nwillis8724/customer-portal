@@ -7,6 +7,9 @@ import CustomerSearch from './CustomerSearch';
 import NavBar from './NavBar';
 import { useState, useEffect, useContext } from 'react';
 import { UserContext } from './contexts/UserContext';
+import MyJobs from './MyJobs';
+import AddEmployee from './AddEmployee';
+import AddDoor from './AddDoor';
 
 
 function App() {
@@ -44,7 +47,19 @@ function App() {
             <Route
               path="/login"
               element={<Login />}
-            />                      
+            />     
+            <Route
+              path="/adddoor"
+              element={<AddDoor jobArray={jobArray} />}
+            />
+            <Route
+              path="/addemployee"
+              element={<AddEmployee />}
+            />
+            <Route
+              path="/myjobs"
+              element={<MyJobs />}
+            />                 
           </Routes>
         </div>
     </div>

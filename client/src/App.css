@@ -1,30 +1,30 @@
 /* Navbar */
 .navbar {
   display: flex;
-  flex-direction: column; /* Layout as a column */
-  height: 30vh; /* Set the height to 30% of the viewport height */
+  flex-direction: column; 
+  height: 30vh; 
   background-color: rgb(4, 22, 82);
   color: white;
 }
 
 .nav-container {
   display: flex;
-  flex-direction: column; /* Layout as a column */
+  flex-direction: column;
 }
 
 .nav-list {
   list-style: none;
   padding: 0;
   display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+  flex-wrap: wrap;
 }
 
 .nav-item {
-  margin-right: 10px; /* Adjust spacing between items */
-  margin-bottom: 10px; /* Add margin between rows */
-  background-color: #555; /* Background color for the boxes */
-  padding: 8px; /* Padding for the boxes */
-  border-radius: 5px; /* Optional: Add rounded corners to the boxes */
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: #555; 
+  padding: 8px;
+  border-radius: 5px; 
 }
 
 .nav-item:hover{
@@ -35,16 +35,16 @@
   text-decoration: none;
   color: white;
   font-weight: bold;
-  font-family: 'Noto Sans', sans-serif; /* Replace 'Your Nicer Font' with the actual font you want to use */
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .navbar-image {
-  max-width: 90%; /* Set the maximum width for the image */
-  max-height: 90%; /* Set the maximum width for the image */
-  height: auto; /* Maintain the aspect ratio */
+  max-width: 90%;
+  max-height: 90%;
+  height: auto;
   object-fit: cover;
-  outline: 2px solid rgb(81, 80, 92); /* Add an outline to the image */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add box shadow to the image */
+  outline: 2px solid rgb(81, 80, 92);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
@@ -73,7 +73,7 @@ h1 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   width: 100%;
-  margin: 0; /* Removed top margin */
+  margin: 0; 
 }
 
 h2 {
@@ -126,7 +126,7 @@ button:hover {
 }
 
 .error_code {
-  color: #ff0000; /* Red color for error messages */
+  color: #ff0000;
   font-size: 14px;
   margin-top: 5px;
 }
@@ -134,7 +134,7 @@ button:hover {
 /* Styles for the grid container */
 .door-info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive columns with a minimum width of 300px */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   max-width: 800px;
   margin: 20px auto;
@@ -157,7 +157,7 @@ button:hover {
 /* Styles for header container */
 .job-selected-container {
   max-width: 800px;
-  margin: 70px auto 20px; /* Adjust the top margin to move it down */
+  margin: 70px auto 20px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -188,15 +188,14 @@ button:hover {
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-bottom: 10px;
+  background-color: #ebeaea;
 }
 
 .job-selected-container .job-notes p {
   font-size: 14px;
-  color: #777;
+  color: #2e2d2d;
   margin: 0;
 }
-
-/* Add these styles to your existing CSS */
 
 .login_container {
   display: flex;
@@ -212,15 +211,15 @@ button:hover {
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
-  margin-bottom: 20%; /* Adjusted margin bottom */
-  background-color: #fff; /* Set background color */
+  margin-bottom: 20%;
+  background-color: #fff;
 }
 
 
 .login_card h2 {
   font-size: 1.5rem;
   margin-bottom: 20px;
-  color: #333; /* Set text color */
+  color: #333;
 }
 
 .login_card input {
@@ -230,7 +229,7 @@ button:hover {
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 5px;
-  outline: none; /* Remove input outline on focus */
+  outline: none;
 }
 
 .login_card button {
@@ -247,14 +246,142 @@ button:hover {
   background-color: #45a049;
 }
 
-.error_code {
-  color: #ff0000; /* Red color for error messages */
-  font-size: 14px;
-  margin-top: 10px; /* Adjust margin top */
-}
-
-/* Optionally, you can add some spacing to the form elements */
 .login_card form {
   display: flex;
   flex-direction: column;
+}
+
+.job-notes .delete_button,
+.job-notes .edit_button {
+  float: right;
+  background-color: transparent;
+  color: inherit;
+  padding: 0px; 
+  margin: 3px;
+  border: none; 
+  border-radius: 5; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 3%;
+}
+
+.job-notes .delete_button:hover,
+.job-notes .edit_button:hover {
+  background-color: gray;
+}
+
+.door_notes .delete_button,
+.door_notes .edit_button {
+  float: right;
+  background-color: transparent;
+  color: inherit;
+  padding: 0px; 
+  margin: 3px;
+  border: none; 
+  border-radius: 5; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 6%;
+}
+
+.door_notes .delete_button:hover,
+.door_notes .edit_button:hover {
+  background-color: gray;
+}
+
+.door_notes{
+  font-size: 14px;
+  color: #2e2d2d;
+  margin: 0;
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #ebeaea;
+}
+
+.employee_form_card {
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.employee-form h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.employee-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-form input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* AddDoor.css */
+
+.add-door-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container {
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.main-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.select-field {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.nested-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
 }

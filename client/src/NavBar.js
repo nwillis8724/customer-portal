@@ -35,11 +35,17 @@ function NavBar() {
           <li className="nav-item">
             <NavLink to="/" className="nav-link">Home</NavLink>
           </li>
-          <li className="nav-item">
+          {user ? null : <li className="nav-item">
             <NavLink to="/about" className="nav-link">About</NavLink>
-          </li>
+          </li>}
           {user ? <li className="nav-item">
-            <NavLink to="/contact" className="nav-link">Add Employee</NavLink>
+            <NavLink to="/myjobs" className="nav-link">My Jobs</NavLink>
+          </li> : null}
+          {user ? <li className="nav-item">
+            <NavLink to="/adddoor" className="nav-link">Add Door</NavLink>
+          </li> : null}
+          {user ? <li className="nav-item">
+            <NavLink to="/addemployee" className="nav-link">Add Employee</NavLink>
           </li> : null}
           <li className="nav-item login">
            {user ? <NavLink to="/" className="nav-link" onClick={handleLogout} >Logout</NavLink> : <NavLink to="/login" className="nav-link">Login</NavLink>}
@@ -51,5 +57,4 @@ function NavBar() {
   );
 }
 
-// Export the NavBar component
 export default NavBar;
