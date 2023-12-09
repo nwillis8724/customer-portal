@@ -50,7 +50,7 @@ function App() {
             />     
             <Route
               path="/adddoor"
-              element={<AddDoor jobArray={jobArray} />}
+              element={<AddDoor jobArray={jobArray} setJobArray={setJobArray} />}
             />
             <Route
               path="/addemployee"
@@ -58,7 +58,7 @@ function App() {
             />
             <Route
               path="/myjobs"
-              element={<MyJobs />}
+              element={<MyJobs jobArray={jobArray} />}
             />                 
           </Routes>
         </div>

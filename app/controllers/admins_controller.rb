@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  before_action :set_admin, only: [:show, :update, :destroy]
+  # before_action :set_admin, only: [:update, :destroy]
 
   # GET /admins
   def index
@@ -10,7 +10,14 @@ class AdminsController < ApplicationController
 
   # GET /admins/1
   def show
-    render json: @admin
+    if session[:user_id].present?
+      user = Admin.find_by(id: session[:user_id])
+      if user
+        render json: user
+      else
+        user_not_found
+      end
+    end
   end
 
   # POST /admins
@@ -26,23 +33,28 @@ class AdminsController < ApplicationController
 
   # PATCH/PUT /admins/1
   def update
-    if @admin.update(admin_params)
-      render json: @admin
-    else
-      render json: @admin.errors, status: :unprocessable_entity
+    if session[:user_id].present?
+      user = Admin.find_by(id: session[:user_id])
+      if user
+        if user.update(user_params)
+          render json: user
+        else
+          render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+        end
+      else
+        user_not_found
+      end
     end
   end
 
   # DELETE /admins/1
   def destroy
-    @admin.destroy
+    user = Admin.find(params[:id])
+    user.destroy
+    head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin
-      @admin = Admin.find(params[:id])
-    end
 
     # Only allow a list of trusted parameters through.
     def admin_params
