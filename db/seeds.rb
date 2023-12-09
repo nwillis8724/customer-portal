@@ -11,22 +11,22 @@ job4 = Job.create(address: '321 Maple Dr, North Field', date_of_install: '04/05/
 job5 = Job.create(address: '306 Leitch Ave, La Grange', date_of_install: '04/15/2023', access_code: '306LALGW')
 
 # Seed data for admin_jobs
-AdminJob.create(admin: noah, job: job1)
-AdminJob.create(admin: junior, job: job1)
-AdminJob.create(admin: tom, job: job1)
+AdminJob.create(admin_id: 1, job_id: 1)
+AdminJob.create(admin_id: 2, job_id: 1)
+AdminJob.create(admin_id: 3, job_id: 1)
 
-AdminJob.create(admin: noah, job: job2)
-AdminJob.create(admin: junior, job: job2)
+AdminJob.create(admin_id: 1, job_id: 2)
+AdminJob.create(admin_id: 2, job_id: 2)
 
-AdminJob.create(admin: noah, job: job3)
-AdminJob.create(admin: tom, job: job3)
+AdminJob.create(admin_id: 1, job_id: 3)
+AdminJob.create(admin_id: 3, job_id: 3)
 
-AdminJob.create(admin: junior, job: job4)
+AdminJob.create(admin_id: 2, job_id: 4)
 
-AdminJob.create(admin: noah, job: job5)
-AdminJob.create(admin: tom, job: job5)
+AdminJob.create(admin_id: 1, job_id: 5)
+AdminJob.create(admin_id: 3, job_id: 5)
 
-# # Seed data for doors
+# Seed data for doors
 Door.create(model: 'AP130', size: '16x8', color: 'Black', date_of_arrival: '01/10/2023', job_id: 1)
 Door.create(model: 'AP200', size: '8x7', color: 'White', date_of_arrival: '01/20/2023', job_id: 1)
 Door.create(model: 'Ranch House', size: '16x7', color: 'Brown', date_of_arrival: '02/05/2023', job_id: 2)
@@ -37,7 +37,7 @@ Door.create(model: 'Ranch House', size: '8x7', color: 'Stained', date_of_arrival
 Door.create(model: 'Rock Creek', size: '18x7', color: 'Black', date_of_arrival: '04/01/2023', job_id: 5)
 Door.create(model: 'Rock Creek', size: '16x7', color: 'Black', date_of_arrival: '04/01/2023', job_id: 5)
 
-# # Seed data for notes
+# Seed data for notes
 Note.create(note: 'Door has been installed', job_id: 1, door_id: 1)
 Note.create(note: 'Painted AP200', door_id: 2)
 Note.create(note: 'I Love Ranch House', door_id: 3)

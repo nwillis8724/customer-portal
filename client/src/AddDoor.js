@@ -12,6 +12,9 @@ function AddDoor({jobArray}) {
   const [doi, setDoi] = useState("")
   const [accessCode, setAccessCode] = useState("")
   const [address, setAddress] = useState("")
+  const [jobId, setJobId] = useState(null)
+  const [newJob, setNewJob] = useState(null)
+  const [adminJobJoinData, setAdminJobJoinData] = useState(null)
   // console.log(jobArray)
 
   function handleSelect(e) {
@@ -19,16 +22,9 @@ function AddDoor({jobArray}) {
     setPartOfJob(!partOfJob);
   }
 
-  function handleAddDoor(e){
-    e.preventDefault()
-
-    const jobData = {
-      address:address,
-      date_of_install: doi,
-      access_code: accessCode,
-      doors: [],
-      admin_id: user.id
-    };
+  function handleAddDoor(e) {
+    e.preventDefault();
+  
     const doorData = {
       model,
       size,
@@ -36,19 +32,23 @@ function AddDoor({jobArray}) {
       date_of_arrival: doa,
       admin_id: user.id
     };
-
+  
+    const jobData = {
+      address: address,
+      date_of_install: doi,
+      access_code: accessCode,
+      admin_id: user.id,
+      doors: []
+    };
+  
     if (partOfJob) {
-      const jobSelected = jobArray.filter((job) => job.access_code ===  accessCode)
-      const jobId = jobSelected.id
-      updateExistingJob(jobId, jobData);
+      const jobSelected = jobArray.find((job) => job.access_code === accessCode);
+      const selectedJobId = jobSelected.id;
+      updateExistingJob(selectedJobId, jobData);
     } else {
-
-      console.log(doorData)
-      console.log(jobData)
-      jobData.doors.push(doorData)
-      createNewJob(jobData);
+      console.log('Job data',jobData)
+      createNewJob(jobData, doorData);
     }
-
   }
   
   function updateExistingJob(jobId, doorData) {
@@ -68,20 +68,69 @@ function AddDoor({jobArray}) {
       });
   }
   
-  function createNewJob(doorData) {
+
+  function createNewJob(jobData, doorData) {
     fetch('/jobs', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(doorData),
+      body: JSON.stringify(jobData),
     })
       .then(response => response.json())
       .then(data => {
-        console.log('New job created successfully', data);
+        console.log('New Job created successfully', data);
+        setNewJob(data)
+        setJobId(data.id)
+        const doorWithJobId = { ...doorData, job_id: data.id };
+        createNewDoor(doorWithJobId);
       })
       .catch(error => {
         console.error('Error creating new job', error);
+      });
+  }
+
+
+  function createNewDoor(doorWithJobId) {
+    fetch('/doors', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(doorWithJobId),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('New door created successfully', data);
+        const updatedAdminJobJoinData = {
+          admin_job: {
+            admin_id: user.id,
+            job_id: data.job_id,
+          },
+        };
+        setAdminJobJoinData(updatedAdminJobJoinData);
+
+      adminJobJoin(updatedAdminJobJoinData);
+      })
+      .catch(error => {
+        console.error('Error creating new door', error);
+      });
+  }
+
+  function adminJobJoin(adminJobJoinData){
+    fetch('/admin_jobs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(adminJobJoinData),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('New adminJob created successfully', data);
+      })
+      .catch(error => {
+        console.error('Error creating new door', error);
       });
   }
 
@@ -109,7 +158,6 @@ function AddDoor({jobArray}) {
               <input placeholder="address" className="input-field" value={address} onChange={(e) => setAddress(e.target.value)}></input>
               <input placeholder="date of install" className="input-field" value={doi} onChange={(e) => setDoi(e.target.value)}></input>
               <input placeholder="access code" className="input-field" value={accessCode} onChange={(e) => setAccessCode(e.target.value)}></input>
-              <p>Is this part of an existing job?</p>
               <button className="submit-button">Submit</button>
             </div>
           )}

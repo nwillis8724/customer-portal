@@ -14,11 +14,12 @@ class AdminJobsController < ApplicationController
 
   # POST /admin_jobs
   def create
-    @admin_job = AdminJob.new(job_params)
+    @admin_job = AdminJob.new(admin_job_params)
 
-    if @job.save
+    if @admin_job.save
       render json: @admin_job, status: :created, location: @admin_job
     else
+      puts @admin_job.errors.full_messages
       render json: @admin_job.errors, status: :unprocessable_entity
     end
   end
@@ -45,6 +46,6 @@ class AdminJobsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def admin_job_params
-      params.require(:admin_job).permit(:admin, :job)
+      params.require(:admin_job).permit(:admin_id, :job_id)
     end
 end
