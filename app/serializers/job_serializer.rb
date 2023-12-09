@@ -9,4 +9,3 @@ class JobSerializer < ActiveModel::Serializer
       object.admins
   end
 end
-rails 

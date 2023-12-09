@@ -38,7 +38,6 @@ function AddDoor({jobArray}) {
     };
 
     if (partOfJob) {
-      // Assuming you have an existing job ID
       const jobSelected = jobArray.filter((job) => job.access_code ===  accessCode)
       const jobId = jobSelected.id
       updateExistingJob(jobId, jobData);
