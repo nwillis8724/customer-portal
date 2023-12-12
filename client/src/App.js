@@ -16,12 +16,17 @@ function App() {
   const {user, setUser} = useContext(UserContext)
   const [jobArray, setJobArray] = useState([])
   const [jobSelected, setJobSelected] = useState([])
+  const [doorsLoaded, setDoorsLoaded] = useState(false)
 
   useEffect(() => {
     fetch("/jobs")
       .then((r) => r.json())
       .then((jobs) => setJobArray(jobs));
   }, []);
+
+  function updateJobArray(newJob) {
+    setJobArray((prevJobArray) => [...prevJobArray, newJob]);
+  };
 
   // console.log(jobArray)
 
@@ -42,7 +47,7 @@ function App() {
             />
             <Route
               path="/customersearch"
-              element={<CustomerSearch jobArray={jobArray} jobSelected={jobSelected} setJobSelected={setJobSelected}/>}
+              element={<CustomerSearch setDoorsLoaded={setDoorsLoaded} doorsLoaded={doorsLoaded} jobArray={jobArray} jobSelected={jobSelected} setJobSelected={setJobSelected}/>}
             />     
             <Route
               path="/login"
@@ -50,7 +55,7 @@ function App() {
             />     
             <Route
               path="/adddoor"
-              element={<AddDoor jobArray={jobArray} setJobArray={setJobArray} />}
+              element={<AddDoor jobArray={jobArray} updateJobArray={updateJobArray} />}
             />
             <Route
               path="/addemployee"

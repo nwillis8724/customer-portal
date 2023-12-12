@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import RaynorLogo from './images/raynorlogo.png'
 
 
-function Home({jobArray, setJobSelected, jobSelected}){
+function Home({jobArray, setJobSelected}){
     const[accesCode, setAccessCode] = useState("")
     const[error, setError] = useState("")
     const navigate = useNavigate(); 

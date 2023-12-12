@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from './contexts/UserContext';
 
 
-function AddDoor({jobArray}) {
+function AddDoor({jobArray, updateJobArray}) {
   const {user, setUser} = useContext(UserContext)
   const [partOfJob, setPartOfJob] = useState(false);
   const [model, setModel] = useState("")
@@ -12,19 +12,24 @@ function AddDoor({jobArray}) {
   const [doi, setDoi] = useState("")
   const [accessCode, setAccessCode] = useState("")
   const [address, setAddress] = useState("")
-  const [jobId, setJobId] = useState(null)
-  const [newJob, setNewJob] = useState(null)
-  const [adminJobJoinData, setAdminJobJoinData] = useState(null)
+  const [jobId, setJobId] = useState("")
+  const [updatedJob, setUpdatedJob] = useState("")
   // console.log(jobArray)
+  // console.log(user)
+
+  useEffect(() => {
+    if (user) {
+      console.log("User data:", user);
+    }
+  }, [user]);
 
   function handleSelect(e) {
     e.preventDefault();
     setPartOfJob(!partOfJob);
   }
 
-  function handleAddDoor(e) {
-    e.preventDefault();
-  
+  function onSubmitHandler(e){
+    e.preventDefault()
     const doorData = {
       model,
       size,
@@ -32,6 +37,18 @@ function AddDoor({jobArray}) {
       date_of_arrival: doa,
       admin_id: user.id
     };
+
+    partOfJob ? updateExistingJob(doorData) : handleAddDoor(doorData)
+    setModel("")
+    setSize("")
+    setColor("")
+    setDoa("")
+    setDoi("")
+    setAccessCode("")
+    setAddress("")
+  }
+
+  function handleAddDoor(doorData) {
   
     const jobData = {
       address: address,
@@ -41,30 +58,32 @@ function AddDoor({jobArray}) {
       doors: []
     };
   
-    if (partOfJob) {
-      const jobSelected = jobArray.find((job) => job.access_code === accessCode);
-      const selectedJobId = jobSelected.id;
-      updateExistingJob(selectedJobId, jobData);
-    } else {
       console.log('Job data',jobData)
       createNewJob(jobData, doorData);
-    }
+
   }
+
+  function updateExistingJob(doorData) {
+    const jobSelected = jobArray.find((job) => job.access_code === accessCode);
   
-  function updateExistingJob(jobId, doorData) {
-    fetch(`/jobs/${jobId}`, {
-      method: 'PATCH',
+    const newDoor = { ...doorData, job_id: jobSelected.id };
+  
+    fetch(`/doors`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(doorData),
+      body: JSON.stringify(newDoor),
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Job updated successfully', data);
+        console.log('Door added successfully', data);
+        const associatedJob = jobArray.find((job) => job.id === data.job_id)
+        associatedJob.doors = [...associatedJob.doors, doorData];
+          setUpdatedJob(associatedJob)
       })
       .catch(error => {
-        console.error('Error updating job', error);
+        console.error('Error adding door', error);
       });
   }
   
@@ -80,10 +99,10 @@ function AddDoor({jobArray}) {
       .then(response => response.json())
       .then(data => {
         console.log('New Job created successfully', data);
-        setNewJob(data)
-        setJobId(data.id)
         const doorWithJobId = { ...doorData, job_id: data.id };
+        data.doors = [doorWithJobId]
         createNewDoor(doorWithJobId);
+        updateJobArray(data);
       })
       .catch(error => {
         console.error('Error creating new job', error);
@@ -106,11 +125,15 @@ function AddDoor({jobArray}) {
           admin_job: {
             admin_id: user.id,
             job_id: data.job_id,
-          },
+          }
         };
-        setAdminJobJoinData(updatedAdminJobJoinData);
-
       adminJobJoin(updatedAdminJobJoinData);
+      const associatedJob = jobArray.find((job) => job.id === data.job_id)
+      const updatedJobDoor = {
+        ...associatedJob,
+        doors: [...associatedJob.doors, data],
+      };
+      setUpdatedJob(updatedJobDoor)
       })
       .catch(error => {
         console.error('Error creating new door', error);
@@ -138,7 +161,7 @@ function AddDoor({jobArray}) {
     <div className="add-door-container">
       <div className="form-container">
         <h3> Add a new Door</h3>
-        <form className="main-form" onSubmit={(e) => handleAddDoor(e)}>
+        <form className="main-form" onSubmit={(e) => onSubmitHandler(e)}>
           <input placeholder="model" className="input-field" value={model} onChange={(e) => setModel(e.target.value)}></input>
           <input placeholder="size" className="input-field" value={size} onChange={(e) => setSize(e.target.value)}></input>
           <input placeholder="color" className="input-field" value={color} onChange={(e) => setColor(e.target.value)}></input>

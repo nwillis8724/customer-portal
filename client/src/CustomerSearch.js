@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-function CustomerSearch({jobSelected, setJobSelected}){
+function CustomerSearch({jobSelected}){
     console.log(jobSelected)
+    const navigate = useNavigate();
 
     function handleEditNote(note){
         console.log(note)
@@ -10,6 +12,12 @@ function CustomerSearch({jobSelected, setJobSelected}){
     function handleDeleteNote(note){
         console.log(note)
     }
+
+    useEffect(() => {
+        if (!jobSelected.doors || jobSelected.doors.length === 0) {
+          navigate("/");
+        }
+      }, [jobSelected.doors, navigate]);
 
     return(
         <div>
@@ -37,7 +45,8 @@ function CustomerSearch({jobSelected, setJobSelected}){
                 </div>
             </div>
             <div className="door-info-grid">
-                {jobSelected.doors.map((door, i) =>{
+                {jobSelected.doors &&
+                jobSelected.doors.map((door, i) =>{
                     // console.log(door.door_notes)
                     return(
                         <div className="door-info-container" key={i}>

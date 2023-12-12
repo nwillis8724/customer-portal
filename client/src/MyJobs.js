@@ -21,9 +21,9 @@ function MyJobs({jobArray}){
                             <p>{job.access_code}</p>
                             <p>{job.address}</p>
                             <p>{job.date_of_install}</p>
-                            {job.doors.map((door) =>{
+                            {job.doors.map((door, i) =>{
                                 return(
-                                <div className="door-card">
+                                <div className="door-card" key={i}>
                                     <p>{door.model}</p>
                                     <p>{door.size}</p>
                                     <p>{door.color}</p>
