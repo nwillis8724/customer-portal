@@ -18,16 +18,16 @@ function MyJobs({jobArray}){
                 {adminsJobs.map((job, i) =>{
                     return(
                         <div key={i} className="job-card">
-                            <p>{job.access_code}</p>
-                            <p>{job.address}</p>
-                            <p>{job.date_of_install}</p>
+                            <h3>{job.access_code}</h3>
+                            <p>Address: {job.address}</p>
+                            <p>Install Date: {job.date_of_install}</p>
                             {job.doors.map((door, i) =>{
                                 return(
                                 <div className="door-card" key={i}>
-                                    <p>{door.model}</p>
-                                    <p>{door.size}</p>
-                                    <p>{door.color}</p>
-                                    <p>{door.date_of_arrival}</p>
+                                    <p>Model: {door.model}</p>
+                                    <p>Size: {door.size}</p>
+                                    <p>Color: {door.color}</p>
+                                    <p>Arrival: {door.date_of_arrival}</p>
                                 </div>
                                 )
                             })}

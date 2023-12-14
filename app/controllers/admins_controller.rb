@@ -22,18 +22,19 @@ class AdminsController < ApplicationController
 
   # POST /admins
   def create
-    @admin = Admin.new(admin_params)
+    @admin = Admin.create(admin_params)
 
     if @admin.save
-      render json: @admin, status: :created, location: @admin
+      session[:user_id] = @admin.id
+      render json: @admin
     else
-      render json: @admin.errors, status: :unprocessable_entity
+      render json: { errors: @admin.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /admins/1
   def update
-    if session[:user_id].present?
+    if session[:user_id]
       user = Admin.find_by(id: session[:user_id])
       if user
         if user.update(user_params)
@@ -58,6 +59,6 @@ class AdminsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def admin_params
-      params.require(:admin).permit(:username, :password_digest, :position)
+      params.require(:admin).permit(:username, :password, :password_confirmation, :position)
     end
 end

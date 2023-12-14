@@ -47,7 +47,7 @@ function App() {
             />
             <Route
               path="/customersearch"
-              element={<CustomerSearch setDoorsLoaded={setDoorsLoaded} doorsLoaded={doorsLoaded} jobArray={jobArray} jobSelected={jobSelected} setJobSelected={setJobSelected}/>}
+              element={<CustomerSearch setJobSelected={setJobSelected} setDoorsLoaded={setDoorsLoaded} doorsLoaded={doorsLoaded} jobArray={jobArray} jobSelected={jobSelected} setJobSelected={setJobSelected}/>}
             />     
             <Route
               path="/login"
