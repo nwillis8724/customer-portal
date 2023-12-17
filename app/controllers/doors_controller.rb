@@ -16,11 +16,11 @@ class DoorsController < ApplicationController
   # POST /doors
   def create
     @door = Door.new(door_params)
-
+  
     if @door.save
       render json: @door, status: :created, location: @door
     else
-      render json: @door.errors, status: :unprocessable_entity
+      render json: { errors: @door.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

@@ -6,6 +6,7 @@ function AddEmployee(){
     const [password, setPassword] = useState("")
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
     const [errors, setErrors] = useState("")
+    const [confirmation, setConfirmation] = useState("")
 
     function handleAddEmployee(e){
         e.preventDefault()
@@ -25,23 +26,31 @@ function AddEmployee(){
             },
             body: JSON.stringify(newEmployee),
           })
-            .then((response) => {
-              if (response.ok) {
-                window.location.reload();
-              } else {
-                response.json().then((data) => {
-                  setErrors(data.errors);
-                  
-                  setTimeout(() => {
-                    setErrors([]);
-                  }, 5000);
-                });
-              }
-            })
-            .catch((error) => {
-              console.error("An error occurred:", error);
-            });
-    }
+          .then((response) => {
+            if (!response.ok) {
+              return response.json().then((data) => {
+                console.log('Validation errors:', data.errors);
+                const formattedErrors = data.errors.map((error) => `- ${error}`).join("\n");
+                setErrors(formattedErrors);
+        
+                setTimeout(() => {
+                  setErrors("");
+                }, 5000);
+              });
+            } else {
+              setConfirmation("Employee Added!")
+              
+              setTimeout(() => {
+                setConfirmation("");
+              }, 5000);
+
+              setPosition("")
+              setUsername("")
+              setPassword("")
+              setPasswordConfirmation("")
+            }
+          })
+        }
     return(
         <div>
             <div className="employee_form_card">
@@ -53,6 +62,8 @@ function AddEmployee(){
                     <input placeholder="confirm password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)}></input>
                     <button>Submit</button>
                 </form>
+                {confirmation ? <p className="confirmation_text">{confirmation}</p> : null}
+                {errors ? <p className="error_code">{errors}</p> : null}
             </div>
         </div>
     )

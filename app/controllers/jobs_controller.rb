@@ -20,23 +20,23 @@ class JobsController < ApplicationController
     if @job.save
       render json: @job, status: :created, location: @job
     else
-      render json: @job.errors, status: :unprocessable_entity
+      render json: { errors: @job.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /jobs/1
-  def update
-    if @job.update(job_params)
-      render json: @job
-    else
-      render json: @job.errors, status: :unprocessable_entity
-    end
-  end
+  # # PATCH/PUT /jobs/1
+  # def update
+  #   if @job.update(job_params)
+  #     render json: @job
+  #   else
+  #     render json: @job.errors, status: :unprocessable_entity
+  #   end
+  # end
 
-  # DELETE /jobs/1
-  def destroy
-    @job.destroy
-  end
+  # # DELETE /jobs/1
+  # def destroy
+  #   @job.destroy
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

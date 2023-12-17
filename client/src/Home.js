@@ -10,18 +10,23 @@ function Home({jobArray, setJobSelected}){
 
     function findDoor(e){
         e.preventDefault()
-        const foundJob = jobArray.find((job) => job.access_code.toLowerCase() === accesCode.toLowerCase());
+         const trimmedAccessCode = accesCode.trim();
+
+  // Check if the access code is not empty before proceeding
+  if (trimmedAccessCode) {
+    const foundJob = jobArray.find((job) => job.access_code.toLowerCase() === trimmedAccessCode.toLowerCase());
+  
 
         if (foundJob) {
             setJobSelected(foundJob);
             navigate("/customersearch");
         } else {
-            setAccessCode("");
             setError("Invalid Access Code");
             setTimeout(() => {
                 setError("");
             }, 3000);
         }
+    }
 
     }
  return (

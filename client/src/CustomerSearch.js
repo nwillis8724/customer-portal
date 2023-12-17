@@ -4,19 +4,85 @@ import { UserContext } from './contexts/UserContext';
 
 
 function CustomerSearch({jobSelected, setJobSelected}){
-    // console.log(jobSelected)
-  const {user, setUser} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext)
     const navigate = useNavigate();
     const [doorNotes, setDoorNotes] = useState({});
     const [errors, setErrors] = useState("")
-    const [editMode, setEditMode] = useState(true)
+    const [editMode, setEditMode] = useState(null)
+    const [updatedNote, setUpdatedNote] = useState("")
+
+
 
     function handleEditNote(note){
         console.log(note)
+        setUpdatedNote(note.note)
+        setEditMode((prevEditMode) => (prevEditMode === note.door_id ? null : note.door_id));
+    }
+
+    function handleUpdateNote(e, note) {
+      console.log("note to update", note)
+      e.preventDefault();
+    
+      fetch(`/notes/${note.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+           note: {
+             note: updatedNote, 
+             job_id: note.job_id,
+             door_id: note.door_id
+            }
+        }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            response.json().then((data) => {
+              setErrors(data.errors);
+    
+              setTimeout(() => {
+                setErrors([]);
+              }, 5000);
+            });
+            throw new Error("Note update failed");
+          }
+        })
+        .then((newNoteFromServer) => {
+          console.log("newNoteFromServe", newNoteFromServer)
+
+          setJobSelected((prevJob) => {
+            const newDoors = prevJob.doors.map((door) => {
+              if (door.id === newNoteFromServer.door_id) {
+                const existingNote = door.door_notes.find((n) => n.id === newNoteFromServer.id);
+                if (existingNote) {
+                  const updatedNotes = door.door_notes.map((n) =>
+                    n.id === newNoteFromServer.id ? newNoteFromServer : n
+                  );
+                  return {
+                    ...door,
+                    door_notes: updatedNotes,
+                  };
+                }
+              }
+              return door;
+            });
+          
+            return {
+              ...prevJob,
+              doors: newDoors,
+            };
+          });
+          setEditMode(null)
+        })
+        .catch((error) => {
+          console.error("An error occurred:", error);
+        });
     }
 
     function handleDeleteNote(note) {
-      console.log(note);
     
       fetch(`/notes/${note.id}`, {
         method: "DELETE",
@@ -38,9 +104,6 @@ function CustomerSearch({jobSelected, setJobSelected}){
                 ...prevJob,
                 doors: newDoors,
               };
-    
-              console.log("New Job Selected State:", newJob);
-    
               return newJob;
             });
           } else {
@@ -59,48 +122,66 @@ function CustomerSearch({jobSelected, setJobSelected}){
     }
 
     function handleNewDoorNote(e, door) {
-        const doorId = door.id
-        e.preventDefault();
-        console.log(doorNotes[doorId])
-      
-        const newNote =
-        {
-            note: doorNotes[doorId],
-            job_id: door.job_id,
-            door_id: doorId,
-            admin_id: user ? user.id : null,
-
-          };
-      
-        fetch("/notes", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({note: newNote}),
+      const doorId = door.id;
+      e.preventDefault();
+    
+      const newNote = {
+        note: doorNotes[doorId],
+        job_id: door.job_id,
+        door_id: doorId,
+        admin_id: user ? user.id : null,
+      };
+    
+      fetch("/notes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ note: newNote }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            response.json().then((data) => {
+              setErrors(data.errors);
+    
+              setTimeout(() => {
+                setErrors([]);
+              }, 5000);
+            });
+            throw new Error("Note creation failed");
+          }
         })
-          .then((response) => {
-            if (response.ok) {
-                console.log(`Note for door ${doorId} submitted: ${doorNotes[doorId]}`);
-
-              setDoorNotes((prevNotes) => ({
-                ...prevNotes,
-                [doorId]: "",
-              }));
-            } else {
-              response.json().then((data) => {
-                setErrors(data.errors);
-      
-                setTimeout(() => {
-                  setErrors([]);
-                }, 5000);
-              });
-            }
-          })
-          .catch((error) => {
-            console.error("An error occurred:", error);
+        .then((newNoteFromServer) => {
+          console.log(`Note for door ${doorId} submitted: ${doorNotes[doorId]}`);
+    
+          setJobSelected((prevJob) => {
+            const newDoors = prevJob.doors.map((door) => {
+              if (door.id === newNoteFromServer.door_id) {
+                return {
+                  ...door,
+                  door_notes: [...door.door_notes, newNoteFromServer],
+                };
+              }
+              return door;
+            });
+    
+            return {
+              ...prevJob,
+              doors: newDoors,
+            };
           });
-      }
+          setDoorNotes((prevNotes) => ({
+            ...prevNotes,
+            [doorId]: "",
+          }));
+        })
+        
+        .catch((error) => {
+          console.error("An error occurred:", error);
+        });
+    }
 
     useEffect(() => {
         if (!jobSelected.doors || jobSelected.doors.length === 0) {
@@ -110,27 +191,29 @@ function CustomerSearch({jobSelected, setJobSelected}){
 
     return(
         <div>
+          {errors ? <p>error</p> :
+          null}
             <div className="job-selected-container">
                 <h1>{jobSelected.address}</h1>
                 <p>Estimated Date of Install: {jobSelected.date_of_install}</p>
-                <div className="job-notes">
+                  {/* <div className="job-notes">
                     {jobSelected.job_notes ?
-                        jobSelected.job_notes.map((note, i) => {
-                            return (
-                            <div key={i}>
-                                <button className="edit_button" onClick={(e) => handleEditNote(note)}>🖉</button>
-                                <button className="delete_button" onClick={(e) => handleDeleteNote(note)}>🗑️</button>
-                                <p>{note.note}</p>
-                            </div>
-                        )})
-                        : null}
-                </div>
+                      jobSelected.job_notes.map((note, i) => (
+                        <div key={i}>
+                          <button className="edit_button" onClick={(e) => handleEditNote(note)}>🖉</button>
+                          <button className="delete_button" onClick={(e) => handleDeleteNote(note)}>🗑️</button>
+                          <p>{note.note}</p>
+                        </div>
+                      ))
+                      : null}
+                  </div> */}
+{/* 
                 <div>
                     <form>
                         <input placeholder="Add Note"></input>
                         <button>Submit</button>
                     </form>
-                </div>
+                </div> */}
             </div>
             <div className="door-info-grid">
                 {jobSelected.doors &&
@@ -151,14 +234,21 @@ function CustomerSearch({jobSelected, setJobSelected}){
                                 <div className="door_notes">
                                     <button className="edit_button" onClick={(e) => handleEditNote(note)}>🖉</button>
                                     <button className="delete_button" onClick={(e) => handleDeleteNote(note)}>🗑️</button>
-                                    <p>{note.note}</p>
+                                    {editMode === note.door_id ? (
+                                      <form onSubmit={(e) => handleUpdateNote(e, note)}>
+                                        <input value={updatedNote} onChange={(e) => setUpdatedNote(e.target.value)}></input>
+                                        <button>Update</button>
+                                      </form>
+                                    ) : (
+                                      <p>{note.note}</p>
+                                    )}
                                 </div>
                             </div>
                         )})
                         : null}
                             <div>
                                 <form onSubmit={(e) => handleNewDoorNote(e, door)}>
-                                    <input placeholder="New comment..." value={doorNotes[door.id] || ""}
+                                    <input placeholder="New note..." value={doorNotes[door.id] || ""}
                                     onChange={(e) => setDoorNotes({ ...doorNotes, [door.id]: e.target.value })}>
                                     </input>
                                     <button>Submit</button>

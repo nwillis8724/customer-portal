@@ -7,9 +7,8 @@ git push -u origin main
 
 
 TODO
-Full crud on notes,
-add/edit/delete on customer search
-jobArray does not update on setUpdatedJob in updateExistingJob
+job notes?
+auth and clean up back end
 
 
 

@@ -12,8 +12,8 @@ function AddDoor({jobArray, updateJobArray}) {
   const [doi, setDoi] = useState("")
   const [accessCode, setAccessCode] = useState("")
   const [address, setAddress] = useState("")
-  const [jobId, setJobId] = useState("")
   const [updatedJob, setUpdatedJob] = useState("")
+  const [errors, setErrors] = useState("")
   // console.log(jobArray)
   // console.log(user)
 
@@ -30,6 +30,25 @@ function AddDoor({jobArray, updateJobArray}) {
 
   function onSubmitHandler(e){
     e.preventDefault()
+
+    if (!accessCode) {
+      setErrors("Access code must be present");
+      setTimeout(() => {
+        setErrors("");
+      }, 3000);
+      return;
+    }
+
+    const isAccessCodeValid = jobArray.some((job) => job.access_code === accessCode);
+
+  if (!isAccessCodeValid) {
+    setErrors("Invalid Access Code");
+    setTimeout(() => {
+      setErrors("");
+    }, 3000);
+    return;
+  }
+
     const doorData = {
       model,
       size,
@@ -75,16 +94,30 @@ function AddDoor({jobArray, updateJobArray}) {
       },
       body: JSON.stringify(newDoor),
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Door added successfully', data);
-        const associatedJob = jobArray.find((job) => job.id === data.job_id)
-        associatedJob.doors = [...associatedJob.doors, doorData];
-          setUpdatedJob(associatedJob)
-      })
-      .catch(error => {
-        console.error('Error adding door', error);
-      });
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((data) => {
+          console.log('Validation errors:', data.errors);
+          const formattedErrors = data.errors.map((error) => `- ${error}`).join("\n");
+          setErrors(formattedErrors);
+  
+          setTimeout(() => {
+            setErrors("");
+          }, 5000);
+        });
+      } else {
+        console.log('Door added successfully', response);
+        const updatedJob = {
+          ...jobSelected,
+          doors: [...jobSelected.doors, newDoor],
+        };
+
+        updateJobArray(updatedJob);
+      }
+    })
+    .catch(error => {
+      console.error('Error creating new job', error);
+    });
   }
   
 
@@ -96,65 +129,100 @@ function AddDoor({jobArray, updateJobArray}) {
       },
       body: JSON.stringify(jobData),
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('New Job created successfully', data);
-        const doorWithJobId = { ...doorData, job_id: data.id };
-        data.doors = [doorWithJobId]
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((data) => {
+          console.log('Validation errors:', data.errors);
+          const formattedErrors = data.errors.map((error) => `- ${error}`).join("\n");
+          setErrors(formattedErrors);
+  
+          setTimeout(() => {
+            setErrors("");
+          }, 5000);
+        });
+      } else {
+        console.log('New Job created successfully', response);
+        const doorWithJobId = { ...doorData, job_id: response.id };
+        response.doors = [doorWithJobId]
         createNewDoor(doorWithJobId);
-        updateJobArray(data);
-      })
-      .catch(error => {
-        console.error('Error creating new job', error);
-      });
+        updateJobArray(response);
+      }
+    })
+    .catch(error => {
+      console.error('Error creating new job', error);
+    });
   }
 
 
   function createNewDoor(doorWithJobId) {
     fetch('/doors', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(doorWithJobId),
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(doorWithJobId),
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('New door created successfully', data);
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((data) => {
+          console.log('Validation errors:', data.errors);
+          const formattedErrors = data.errors.map((error) => `- ${error}`).join("\n");
+          setErrors(formattedErrors);
+  
+          setTimeout(() => {
+            setErrors("");
+          }, 5000);
+        });
+      } else {
+        console.log('New door created successfully', response);
         const updatedAdminJobJoinData = {
-          admin_job: {
-            admin_id: user.id,
-            job_id: data.job_id,
-          }
+            admin_job: {
+                admin_id: user.id,
+                job_id: response.job_id,
+            }
         };
-      adminJobJoin(updatedAdminJobJoinData);
-      const associatedJob = jobArray.find((job) => job.id === data.job_id)
-      const updatedJobDoor = {
-        ...associatedJob,
-        doors: [...associatedJob.doors, data],
-      };
-      setUpdatedJob(updatedJobDoor)
-      })
-      .catch(error => {
-        console.error('Error creating new door', error);
-      });
+        adminJobJoin(updatedAdminJobJoinData);
+        const associatedJob = jobArray.find((job) => job.id === response.job_id)
+        if (associatedJob) {
+            const updatedJobDoor = {
+                ...associatedJob,
+                doors: [...associatedJob.doors, response],
+            };
+            setUpdatedJob(updatedJobDoor);
+        }
+    }
+        })
+        .catch(error => {
+            console.error('Error creating new door', error);
+        });
   }
 
-  function adminJobJoin(adminJobJoinData){
+  function adminJobJoin(adminJobJoinData) {
     fetch('/admin_jobs', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(adminJobJoinData),
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(adminJobJoinData),
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('New adminJob created successfully', data);
-      })
-      .catch(error => {
-        console.error('Error creating new door', error);
-      });
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((data) => {
+          console.log('Validation errors:', data.errors);
+          const formattedErrors = data.errors.map((error) => `- ${error}`).join("\n");
+          setErrors(formattedErrors);
+  
+          setTimeout(() => {
+            setErrors("");
+          }, 5000);
+        });
+      } else {
+        console.log('New adminJob created successfully', response);
+      }
+    })
+    .catch(error => {
+      console.error('Error creating new job', error);
+    });
   }
 
   return (
@@ -185,6 +253,7 @@ function AddDoor({jobArray, updateJobArray}) {
             </div>
           )}
         </form>
+          {errors ? <p className="error_code">{errors}</p> : null}
       </div>
     </div>
   );

@@ -35,7 +35,6 @@ function App() {
     <div>
       <NavBar />
         <div className='app'>
-          {/* <NavBar user={user} />  */}
           <Routes>
             <Route
               path="/"
@@ -47,7 +46,7 @@ function App() {
             />
             <Route
               path="/customersearch"
-              element={<CustomerSearch setJobSelected={setJobSelected} setDoorsLoaded={setDoorsLoaded} doorsLoaded={doorsLoaded} jobArray={jobArray} jobSelected={jobSelected} setJobSelected={setJobSelected}/>}
+              element={<CustomerSearch setJobSelected={setJobSelected} setDoorsLoaded={setDoorsLoaded} doorsLoaded={doorsLoaded} jobArray={jobArray} jobSelected={jobSelected}/>}
             />     
             <Route
               path="/login"

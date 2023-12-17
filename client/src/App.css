@@ -414,3 +414,11 @@ button:hover {
   border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.confirmation_text {
+  background-color: rgba(46, 204, 113, 0.6); /* Green background color with 60% opacity */
+  color: white; /* White text color */
+  padding: 10px; /* Padding around the text */
+  margin: 10px 0; /* Margin to create some space around the text */
+  border-radius: 5px; /* Rounded corners for a nicer look */
+}
