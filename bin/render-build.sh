@@ -2,9 +2,6 @@
 # exit on error
 set -o errexit
 
-# Load RVM environment
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
 # builds the front end code
 rm -rf public
 npm install --prefix client && npm run build --prefix client
