@@ -8,7 +8,21 @@ git push -u origin main
 todo:
 get usernames on notes!!!
 
-# Project Template: React/Rails API
+# Customer Portal
+
+Customer Portal is a simple application that allows the customers and staff to communicate with one another through their product. Exchanging notes and keeping everyone up to date on information
+
+## Home
+
+On the home page the user can search their product using an access code. It will take you to the results page with a grid showing the product and any notes that may be included.
+
+## Staff Login
+
+Staff can also log in and add jobs, employees or view all the jobs they are connected to.
+
+
+
+<!-- # Project Template: React/Rails API
 
 ## Description
 
@@ -358,4 +372,4 @@ troubleshoot:
 ## Resources
 
 - [Getting Started with Ruby on Rails on Render](https://render.com/docs/deploy-rails)
-- [Render Databases Guide](https://render.com/docs/databases)
+- [Render Databases Guide](https://render.com/docs/databases) -->
