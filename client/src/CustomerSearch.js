@@ -82,6 +82,15 @@ function CustomerSearch({jobSelected, setJobSelected}){
         });
     }
 
+    
+    function deleteConfirmation(note) {
+      const isConfirmed = window.confirm("Are you sure you want to delete this note?");
+  
+      if (isConfirmed) {
+        handleDeleteNote(note);
+      }
+    }
+
     function handleDeleteNote(note) {
     
       fetch(`/notes/${note.id}`, {
@@ -214,8 +223,16 @@ function CustomerSearch({jobSelected, setJobSelected}){
                             return (
                             <div key={i}>
                                 <div className="door_notes">
-                                    <button className="edit_button" onClick={(e) => handleEditNote(note)}>🖉</button>
-                                    <button className="delete_button" onClick={(e) => handleDeleteNote(note)}>🗑️</button>
+                                {user && (
+                                  <>
+                                    <button className="edit_button" onClick={(e) => handleEditNote(note)}>
+                                      🖉
+                                    </button>
+                                    <button className="delete_button" onClick={(e) => deleteConfirmation(note)}>
+                                      🗑️
+                                    </button>
+                                  </>
+                                )}
                                     {editMode === note.door_id ? (
                                       <form onSubmit={(e) => handleUpdateNote(e, note)}>
                                         <input value={updatedNote} onChange={(e) => setUpdatedNote(e.target.value)}></input>
