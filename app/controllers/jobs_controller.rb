@@ -5,7 +5,7 @@ class JobsController < ApplicationController
   # GET /jobs
   def index
     @jobs = Job.all
-    render json: @jobs, include: 'doors'
+    render json: @jobs, include: ['doors', 'doors.notes']
   end
 
   # GET /jobs/1
@@ -24,19 +24,19 @@ class JobsController < ApplicationController
     end
   end
 
-  # # PATCH/PUT /jobs/1
-  # def update
-  #   if @job.update(job_params)
-  #     render json: @job
-  #   else
-  #     render json: @job.errors, status: :unprocessable_entity
-  #   end
-  # end
+  # PATCH/PUT /jobs/1
+  def update
+    if @job.update(job_params)
+      render json: @job
+    else
+      render json: @job.errors, status: :unprocessable_entity
+    end
+  end
 
-  # # DELETE /jobs/1
-  # def destroy
-  #   @job.destroy
-  # end
+  # DELETE /jobs/1
+  def destroy
+    @job.destroy
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

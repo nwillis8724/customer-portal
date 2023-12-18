@@ -5,6 +5,8 @@ git add .
 git commit -m ""
 git push -u origin main
 
+todo:
+get usernames on notes!!!
 
 # Project Template: React/Rails API
 
