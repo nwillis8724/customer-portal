@@ -6,12 +6,6 @@ git commit -m ""
 git push -u origin main
 
 
-TODO
-job notes?
-auth and clean up back end
-
-
-
 # Project Template: React/Rails API
 
 ## Description

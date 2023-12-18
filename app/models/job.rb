@@ -1,6 +1,6 @@
 class Job < ApplicationRecord
     has_many :doors
-    has_many :notes
+    has_many :notes, through: :doors
     has_many :admin_jobs
     has_many :admins, through: :admin_jobs
 
@@ -11,4 +11,7 @@ class Job < ApplicationRecord
       notes.where(door_id: nil)
     end
     
+    def door_notes
+      doors.flat_map(&:notes)
+    end
   end

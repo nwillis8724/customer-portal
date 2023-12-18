@@ -11,10 +11,10 @@ function Home({jobArray, setJobSelected}){
     function findDoor(e){
         e.preventDefault()
          const trimmedAccessCode = accesCode.trim();
+         console.log(jobArray)
 
-  // Check if the access code is not empty before proceeding
   if (trimmedAccessCode) {
-    const foundJob = jobArray.find((job) => job.access_code.toLowerCase() === trimmedAccessCode.toLowerCase());
+    const foundJob = jobArray.find((job) => job.access_code === trimmedAccessCode);
   
 
         if (foundJob) {

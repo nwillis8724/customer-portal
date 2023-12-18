@@ -34,7 +34,8 @@ function Login({ onLogin }) {
               });
             } else if (!r.ok) {
                 r.json().then((data) => {
-                    setErrors([data.error]);
+                  const formattedErrors = data.errors.map((error) => `- ${error}`).join("\n");
+                  setErrors(formattedErrors);
     
                     setTimeout(() => {
                       setErrors("");
@@ -64,13 +65,7 @@ function Login({ onLogin }) {
                     <input className="password" value ={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"></input>
                     <button>Login</button>
                 </form>
-                {errors.length > 0 && (
-                        <div className="error">
-                            {errors.map((error, index) => (
-                            <div key={index}>{error}</div>
-                            ))}
-                        </div>
-                    )}
+                {errors ? <p className="error_code">{errors}</p> : null}
             </div>
         </div>
       </div>

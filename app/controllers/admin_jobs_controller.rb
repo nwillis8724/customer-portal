@@ -19,8 +19,7 @@ class AdminJobsController < ApplicationController
     if @admin_job.save
       render json: @admin_job, status: :created, location: @admin_job
     else
-      puts @admin_job.errors.full_messages
-      render json: @admin_job.errors, status: :unprocessable_entity
+      render json: @admin_job.errors.full_messages, status: :unprocessable_entity
     end
   end
 

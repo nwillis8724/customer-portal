@@ -56,14 +56,14 @@ function CustomerSearch({jobSelected, setJobSelected}){
           setJobSelected((prevJob) => {
             const newDoors = prevJob.doors.map((door) => {
               if (door.id === newNoteFromServer.door_id) {
-                const existingNote = door.door_notes.find((n) => n.id === newNoteFromServer.id);
+                const existingNote = door.notes.find((n) => n.id === newNoteFromServer.id);
                 if (existingNote) {
-                  const updatedNotes = door.door_notes.map((n) =>
+                  const updatedNotes = door.notes.map((n) =>
                     n.id === newNoteFromServer.id ? newNoteFromServer : n
                   );
                   return {
                     ...door,
-                    door_notes: updatedNotes,
+                    notes: updatedNotes,
                   };
                 }
               }
@@ -97,7 +97,7 @@ function CustomerSearch({jobSelected, setJobSelected}){
             setJobSelected((prevJob) => {
               const newDoors = prevJob.doors.map((door) => ({
                 ...door,
-                door_notes: door.door_notes.filter((n) => n.id !== note.id),
+                notes: door.notes.filter((n) => n.id !== note.id),
               }));
     
               const newJob = {
@@ -161,7 +161,7 @@ function CustomerSearch({jobSelected, setJobSelected}){
               if (door.id === newNoteFromServer.door_id) {
                 return {
                   ...door,
-                  door_notes: [...door.door_notes, newNoteFromServer],
+                  notes: [...door.notes, newNoteFromServer],
                 };
               }
               return door;
@@ -196,29 +196,11 @@ function CustomerSearch({jobSelected, setJobSelected}){
             <div className="job-selected-container">
                 <h1>{jobSelected.address}</h1>
                 <p>Estimated Date of Install: {jobSelected.date_of_install}</p>
-                  {/* <div className="job-notes">
-                    {jobSelected.job_notes ?
-                      jobSelected.job_notes.map((note, i) => (
-                        <div key={i}>
-                          <button className="edit_button" onClick={(e) => handleEditNote(note)}>🖉</button>
-                          <button className="delete_button" onClick={(e) => handleDeleteNote(note)}>🗑️</button>
-                          <p>{note.note}</p>
-                        </div>
-                      ))
-                      : null}
-                  </div> */}
-{/* 
-                <div>
-                    <form>
-                        <input placeholder="Add Note"></input>
-                        <button>Submit</button>
-                    </form>
-                </div> */}
             </div>
             <div className="door-info-grid">
                 {jobSelected.doors &&
                 jobSelected.doors.map((door, i) =>{
-                    // console.log(door.door_notes)
+                  console.log(door)
                     return(
                         <div className="door-info-container" key={i}>
                             <p>Model: {door.model}</p>
@@ -226,8 +208,8 @@ function CustomerSearch({jobSelected, setJobSelected}){
                             <p>Color: {door.color}</p>
                             <p>Date of Arrival: {door.date_of_arrival}</p>
                             <div>
-                            {door.door_notes ? 
-                                door.door_notes.map((note, i) => {
+                            {door.notes ? 
+                                door.notes.map((note, i) => {
                             // console.log(note)
                             return (
                             <div key={i}>

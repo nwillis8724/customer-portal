@@ -58,8 +58,8 @@ function AddEmployee(){
                 <form className="employee_form" onSubmit={(e) => handleAddEmployee(e)}>
                     <input placeholder="position" value={position} onChange={(e) => setPosition(e.target.value)}></input>
                     <input placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)}></input>
-                    <input placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-                    <input placeholder="confirm password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)}></input>
+                    <input placeholder="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                    <input placeholder="confirm password" type="password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)}></input>
                     <button>Submit</button>
                 </form>
                 {confirmation ? <p className="confirmation_text">{confirmation}</p> : null}

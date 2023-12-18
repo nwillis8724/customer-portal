@@ -5,7 +5,7 @@ class DoorsController < ApplicationController
   def index
     @doors = Door.all
 
-    render json: @doors
+    render json: @doors, include: 'notes'
   end
 
   # GET /doors/1
