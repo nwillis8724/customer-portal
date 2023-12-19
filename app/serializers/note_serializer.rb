@@ -3,5 +3,4 @@ class NoteSerializer < ActiveModel::Serializer
 
   belongs_to :job
   belongs_to :door
-
 end

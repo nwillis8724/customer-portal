@@ -5,6 +5,6 @@ class Note < ApplicationRecord
 
 
     def poster_name
-      admin&.username || 'customer'
+      admin&.username || 'The customer'
     end
   end

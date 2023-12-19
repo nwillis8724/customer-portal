@@ -16,6 +16,7 @@ class NotesController < ApplicationController
   # POST /notes
   def create
     @note = Note.new(note_params)
+    @note.admin = current_user
 
     if @note.save
       render json: @note, status: :created, location: @note

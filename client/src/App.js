@@ -15,7 +15,6 @@ import AddDoor from './AddDoor';
 function App() {
   const {user, setUser} = useContext(UserContext)
   const [jobArray, setJobArray] = useState([])
-  const [jobSelected, setJobSelected] = useState([])
   const [doorsLoaded, setDoorsLoaded] = useState(false)
 
   useEffect(() => {
@@ -38,15 +37,15 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={<Home jobArray={jobArray} jobSelected={jobSelected} setJobSelected={setJobSelected} />}
+              element={<Home jobArray={jobArray}/>}
             />
             <Route
               path="/about"
               element={<About />}
             />
             <Route
-              path="/customersearch"
-              element={<CustomerSearch setJobSelected={setJobSelected} setDoorsLoaded={setDoorsLoaded} doorsLoaded={doorsLoaded} jobArray={jobArray} jobSelected={jobSelected}/>}
+              path="/jobs/:id"
+              element={<CustomerSearch jobArray={jobArray} setDoorsLoaded={setDoorsLoaded} doorsLoaded={doorsLoaded}/>}
             />     
             <Route
               path="/login"

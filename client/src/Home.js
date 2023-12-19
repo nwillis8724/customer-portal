@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import RaynorLogo from './images/raynorlogo.png'
+import { JobContext } from "./contexts/JobContext";
 
 
-function Home({jobArray, setJobSelected}){
+function Home({jobArray}){
+    const { jobSelected, setJobSelected } = useContext(JobContext);
     const[accesCode, setAccessCode] = useState("")
     const[error, setError] = useState("")
     const navigate = useNavigate(); 
@@ -11,15 +13,13 @@ function Home({jobArray, setJobSelected}){
     function findDoor(e){
         e.preventDefault()
          const trimmedAccessCode = accesCode.trim();
-         console.log(jobArray)
 
   if (trimmedAccessCode) {
     const foundJob = jobArray.find((job) => job.access_code === trimmedAccessCode);
-  
 
         if (foundJob) {
             setJobSelected(foundJob);
-            navigate("/customersearch");
+            navigate(`/jobs/${foundJob.id}`);
         } else {
             setError("Invalid Access Code");
             setTimeout(() => {

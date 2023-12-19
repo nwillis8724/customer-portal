@@ -1,7 +1,7 @@
 # Seed data for admins
-noah = Admin.create(username: 'Noah', password: 'password123', position: 'Programmer')
-junior = Admin.create(username: 'Junior', password: 'juniorpassword', position: 'Manager')
-tom = Admin.create(username: 'Tom', password: 'tomspassword', position: 'Residential Foreman')
+noah = Admin.create(username: 'Noah', password: 'noahpassword', password_confirmation: 'noahpassword', position: 'Programmer')
+junior = Admin.create(username: 'Junior', password: 'juniorpassword',  password_confirmation: 'juniorpassword', position: 'Manager')
+tom = Admin.create(username: 'Tom', password: 'tomspassword', password_confirmation: 'tomspassword', position: 'Residential Foreman')
 
 # Seed data for jobs
 job1 = Job.create(address: '123 Main St, Glencoe', date_of_install: '01/15/2023', access_code: '123MSGCS')
