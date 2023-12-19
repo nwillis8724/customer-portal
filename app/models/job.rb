@@ -1,6 +1,6 @@
 class Job < ApplicationRecord
     has_many :doors
-    has_many :notes, through: :doors
+    has_many :notes
     has_many :admin_jobs
     has_many :admins, through: :admin_jobs
 

@@ -28,7 +28,6 @@ const UserContext = createContext();
           setError(err.message);
         });
     }, []);
-    
 
     return (
       <UserContext.Provider value={{ user, setUser, error }}>

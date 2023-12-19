@@ -1,4 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from './contexts/UserContext';
 
 
@@ -15,6 +16,7 @@ function AddDoor({jobArray, updateJobArray}) {
   const [updatedJob, setUpdatedJob] = useState("")
   const [errors, setErrors] = useState("") 
   const [confirmation, setConfirmation] = useState("")
+  const navigate = useNavigate();
 
 
   function handleSelect(e) {
@@ -109,12 +111,14 @@ function AddDoor({jobArray, updateJobArray}) {
         setConfirmation("Job Updated!")
         setTimeout(() => {
           setConfirmation("");
-        }, 5000);
+        }, 3000);
+
       }
     })
     .catch(error => {
       console.error('Error creating new job', error);
     });
+
   }
   
 
@@ -153,12 +157,18 @@ function AddDoor({jobArray, updateJobArray}) {
           setDoi("");
           setAccessCode("");
           setAddress("");
-  
-          setConfirmation("Job Added!");
+
+          setUser((prevUser) => ({
+            ...prevUser,
+            jobs: [...prevUser.jobs, data]
+          }))
+
+          setConfirmation("New Job Created!")
           setTimeout(() => {
             setConfirmation("");
-          }, 5000);
+          }, 3000);
         });
+
       }
     })
     .catch(error => {

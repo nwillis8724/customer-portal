@@ -207,6 +207,34 @@ function CustomerSearch({jobArray, setJobArray}){
     
             return newJobs;
           });
+
+          if (user && user.id) {
+            const adminJobData = {
+              admin_id: user.id,
+              job_id: door.job_id,
+            };
+
+            setUser((prevUser) => ({
+              ...prevUser,
+              jobs: [...prevUser.jobs, newNoteFromServer.job]
+            }))
+    
+            fetch("/admin_jobs", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ admin_job: adminJobData }),
+            })
+              .then((adminJobResponse) => {
+                if (!adminJobResponse.ok) {
+                  console.error("Failed to create AdminJob record");
+                }
+              })
+              .catch((error) => {
+                console.error("An error occurred:", error);
+              });
+          }
     
           setDoorNotes((prevNotes) => ({
             ...prevNotes,
@@ -218,6 +246,8 @@ function CustomerSearch({jobArray, setJobArray}){
           console.error("An error occurred:", error);
         });
     }
+
+
     return (
       <div>
         {isLoading ? (
