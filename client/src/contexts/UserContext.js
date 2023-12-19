@@ -10,7 +10,6 @@ const UserContext = createContext();
       fetch("/me")
         .then((r) => {
           if (r.status === 204) {
-            // No Content, return without attempting to parse JSON
             return;
           }
           if (!r.ok) {
