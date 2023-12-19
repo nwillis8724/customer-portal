@@ -1,7 +1,7 @@
 # Seed data for admins
-noah = Admin.create(username: 'Noah', password: 'noahpassword', password_confirmation: 'noahpassword', position: 'Programmer')
-junior = Admin.create(username: 'Junior', password: 'juniorpassword',  password_confirmation: 'juniorpassword', position: 'Manager')
-tom = Admin.create(username: 'Tom', password: 'tomspassword', password_confirmation: 'tomspassword', position: 'Residential Foreman')
+noah = Admin.create(username: 'Noah', password: 'Noahpassword.', password_confirmation: 'Noahpassword.', position: 'Programmer')
+junior = Admin.create(username: 'Junior', password: 'Juniorpassword.',  password_confirmation: 'Juniorpassword.', position: 'Manager')
+tom = Admin.create(username: 'Tom', password: 'Tomspassword.', password_confirmation: 'Tomspassword.', position: 'Residential Foreman')
 
 # Seed data for jobs
 job1 = Job.create(address: '123 Main St, Glencoe', date_of_install: '01/15/2023', access_code: '123MSGCS')
@@ -11,20 +11,20 @@ job4 = Job.create(address: '321 Maple Dr, North Field', date_of_install: '04/05/
 job5 = Job.create(address: '306 Leitch Ave, La Grange', date_of_install: '04/15/2023', access_code: '306LALGW')
 
 # Seed data for admin_jobs
-AdminJob.create(admin_id: 1, job_id: 1)
-AdminJob.create(admin_id: 2, job_id: 1)
-AdminJob.create(admin_id: 3, job_id: 1)
+AdminJob.create(admin: noah, job: job1)
+AdminJob.create(admin: junior, job: job1)
+AdminJob.create(admin: tom, job: job1)
 
-AdminJob.create(admin_id: 1, job_id: 2)
-AdminJob.create(admin_id: 2, job_id: 2)
+AdminJob.create(admin: noah, job: job2)
+AdminJob.create(admin: junior, job: job2)
 
-AdminJob.create(admin_id: 1, job_id: 3)
-AdminJob.create(admin_id: 3, job_id: 3)
+AdminJob.create(admin: noah, job: job3)
+AdminJob.create(admin: tom, job: job3)
 
-AdminJob.create(admin_id: 2, job_id: 4)
+AdminJob.create(admin: junior, job: job4)
 
-AdminJob.create(admin_id: 1, job_id: 5)
-AdminJob.create(admin_id: 3, job_id: 5)
+AdminJob.create(admin: noah, job: job5)
+AdminJob.create(admin: tom, job: job5)
 
 # Seed data for doors
 Door.create(model: 'AP130', size: '16x8', color: 'Black', date_of_arrival: '01/10/2023', job_id: 1)
