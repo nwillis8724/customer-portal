@@ -9,7 +9,7 @@ class AdminsController < ApplicationController
   end
 
   # GET /admins/1
-  def show
+  def me
     if session[:user_id].present?
       user = Admin.find_by(id: session[:user_id])
       if user
@@ -18,6 +18,11 @@ class AdminsController < ApplicationController
         user_not_found
       end
     end
+  end
+
+  def show
+    admin = Admin.find(params[:id])
+    render json: admin
   end
 
   # POST /admins
@@ -59,6 +64,6 @@ class AdminsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def admin_params
-      params.require(:admin).permit(:username, :password, :password_confirmation, :position)
+      params.require(:admin).permit(:username, :password, :password_confirmation, :position, :email, :image_url)
     end
 end

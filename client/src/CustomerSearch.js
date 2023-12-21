@@ -240,6 +240,7 @@ function CustomerSearch({jobArray, setJobArray}){
             ...prevNotes,
             [doorId]: "",
           }));
+          
         })
         
         .catch((error) => {
@@ -292,7 +293,15 @@ function CustomerSearch({jobArray, setJobArray}){
                                     ) : (
                                       <>
                                         <p>{note.note}</p>
-                                        <p>Posted By: {note.poster_name}</p>
+                                        <p>Posted By: 
+                                            {note.admin_id ? (
+                                              <a href={`/bio/${note.admin_id}`} 
+                                                style={{ textDecoration: 'none', color: 'blue', fontWeight: 'bold' }}
+                                              >
+                                                  &nbsp;{note.poster_name}</a>
+                                            ) : (
+                                              <p>{note.poster_name}</p>
+                                            )}</p>
                                       </>
                                     )}
                                   </div>

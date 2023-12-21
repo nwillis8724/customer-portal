@@ -17,8 +17,12 @@ class NotesController < ApplicationController
   def create
     @note = Note.new(note_params)
     @note.admin = current_user
-
     if @note.save
+      admins_associated = @note.door.job.admins
+      note_content = @note.note
+      job_associated = @note.door.job
+
+      NoteMailer.new_note_email(admins_associated, note_content, job_associated).deliver_now!
       render json: @note, status: :created, location: @note
     else
       render json: @note.errors, status: :unprocessable_entity
@@ -47,6 +51,6 @@ class NotesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def note_params
-      params.require(:note).permit(:note, :job_id, :door_id)
+      params.require(:note).permit(:note, :job_id, :door_id, :admin_id)
     end
 end

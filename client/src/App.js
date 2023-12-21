@@ -10,6 +10,7 @@ import { UserContext } from './contexts/UserContext';
 import MyJobs from './MyJobs';
 import AddEmployee from './AddEmployee';
 import AddDoor from './AddDoor';
+import AdminBio from './AdminBio';
 
 
 function App() {
@@ -62,7 +63,11 @@ function App() {
             <Route
               path="/myjobs"
               element={<MyJobs jobArray={jobArray} />}
-            />                 
+            />     
+            <Route
+              path="/bio/:id" 
+              element={<AdminBio />}
+            />             
           </Routes>
         </div>
     </div>
