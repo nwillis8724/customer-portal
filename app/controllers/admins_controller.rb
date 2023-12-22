@@ -30,7 +30,6 @@ class AdminsController < ApplicationController
     @admin = Admin.create(admin_params)
 
     if @admin.save
-      session[:user_id] = @admin.id
       render json: @admin
     else
       render json: { errors: @admin.errors.full_messages }, status: :unprocessable_entity
