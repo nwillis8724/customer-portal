@@ -1,5 +1,5 @@
 # Seed data for admins
-noah = Admin.create(username: 'Noah', password: 'Noahpassword.', password_confirmation: 'Noahpassword.', position: 'Programmer', email: "n.willis.8724@gmail.com",  image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrGr88ctnkI1eXvOc6CuertlmNH6ihhkyqnmyNtsuaFaIYGGrvBglHljTNGC_LHFL-su0&usqp=CAU")
+noah = Admin.create(username: 'Noah', password: 'Noahpassword.', password_confirmation: 'Noahpassword.', position: 'Programmer', email: "n.willis.8724@gmail.com",  image_url:"https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg")
 junior = Admin.create(username: 'Junior', password: 'Juniorpassword.',  password_confirmation: 'Juniorpassword.', position: 'Manager', email: "new.note.portal@gmail.com", image_url:"https://d2gg9evh47fn9z.cloudfront.net/1600px_COLOURBOX40521065.jpg")
 tom = Admin.create(username: 'Tom', password: 'Tomspassword.', password_confirmation: 'Tomspassword.', position: 'Residential Foreman', email: "drdubz.8724@gmail.com", image_url:"https://www.creativefabrica.com/wp-content/uploads/2022/11/22/Cartoon-drawing-of-Red-squirrel-with-an-Graphics-47907350-1.jpg")
 

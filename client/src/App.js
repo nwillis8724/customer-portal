@@ -54,7 +54,7 @@ function App() {
             />     
             <Route
               path="/adddoor"
-              element={<AddDoor jobArray={jobArray} updateJobArray={updateJobArray} />}
+              element={<AddDoor jobArray={jobArray} updateJobArray={updateJobArray} setJobArray={setJobArray} />}
             />
             <Route
               path="/addemployee"

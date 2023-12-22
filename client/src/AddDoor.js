@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from './contexts/UserContext';
 
 
-function AddDoor({jobArray, updateJobArray}) {
+function AddDoor({jobArray, setJobArray, updateJobArray}) {
   const {user, setUser} = useContext(UserContext)
   const [partOfJob, setPartOfJob] = useState(false);
   const [model, setModel] = useState("")
@@ -98,7 +98,15 @@ function AddDoor({jobArray, updateJobArray}) {
           doors: [...jobSelected.doors, newDoor],
         };
 
-        updateJobArray(updatedJob);
+        setJobArray((prevArray) => {
+          return prevArray.map((job) => {
+            if (job.id === updatedJob.id) {
+              return updatedJob;
+            } else {
+              return job;
+            }
+          });
+        });
         setModel("")
         setSize("")
         setColor("")

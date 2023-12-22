@@ -2,11 +2,33 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        color: #007BFF;
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      .logo {
+        max-width: 100px;
+      }
+    </style>
   </head>
   <body>
     <h1>A New Note has been Submitted!</h1>
     <p>
-      <%= @note_content %> <br> for <%= @job_associated.address %>. Find it using this access code <%= @job_associated.access_code %> <br> 
+      The note "<%= @note_content %>" has been added to the <%= @job_associated.address %> on the customer's <%= @door_associated %> door. Find it using this access code <%= @job_associated.access_code %>.
     </p>
   </body>
 </html>

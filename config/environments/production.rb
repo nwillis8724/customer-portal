@@ -118,7 +118,7 @@ Rails.application.configure do
     user_name: "new.note.portal@gmail.com",
     password: "mcci edqk tvur qklw",
     authentication: "plain",
-    enable_starttls: true,
+    enable_starttls_auto: true,
     open_timeout: 5,
     read_timeout: 5
   }

@@ -21,8 +21,8 @@ class NotesController < ApplicationController
       admins_associated = @note.door.job.admins
       note_content = @note.note
       job_associated = @note.door.job
-
-      NoteMailer.new_note_email(admins_associated, note_content, job_associated).deliver_now!
+      door_associated = @note.door.model
+      NoteMailer.new_note_email(admins_associated, note_content, job_associated, door_associated).deliver_now!
       render json: @note, status: :created, location: @note
     else
       render json: @note.errors, status: :unprocessable_entity
